@@ -1,6 +1,7 @@
-import Views.Home;
+import controllers.ControladorFuncionario;
 import java.util.Map;
 import java.util.Scanner;
+import views.Home;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,12 +11,14 @@ public class Main {
 
         System.out.println("Bem-vindo ao Sistema");
         Home h = new Home();
+        ControladorFuncionario cFuncionario = new ControladorFuncionario();
         while (running) {
             Map<String, Object> retorno = h.view();
             int opcao = (int) retorno.get("numero");
 
             switch (opcao) {
                 case 1: //funcionarios
+                    cFuncionario.iniciar();
                     h.clearScreen();
                     break;
                 case 2: //Projetos
