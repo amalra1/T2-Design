@@ -48,4 +48,13 @@ public class ListaDeFuncionarios {
             }
         }
     }
+
+    public Funcionario login(String nome, String senha){
+        for (Funcionario f : funcionarios) {
+            if (f.login(nome, senha)){
+                return f;
+            }
+        }
+        return null;
+    }
 }

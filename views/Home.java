@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Home {
     
-    public Map<String, Object> view() {
+    public Map<String, Object> home() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Menu Principal");
@@ -32,6 +32,7 @@ public class Home {
         Map<String, Object> retorno = new HashMap<>();
         retorno.put("numero", option);
         retorno.put("texto", "asd");
+
         return retorno;
     }
 
@@ -47,4 +48,19 @@ public class Home {
         }
     }
     
+    public Map<String, Object> login() {
+        Map<String, Object> retorno = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+        String nome, senha;
+
+        System.out.print("Nome: ");
+        nome = scanner.nextLine();
+        retorno.put("nome", nome);
+        
+        System.out.print("Senha: ");
+        senha = scanner.nextLine();
+        retorno.put("senha", senha);
+
+        return retorno;
+    }
 }

@@ -4,6 +4,7 @@ public class Funcionario {
 
     // Atributos da classe Funcionario
     private String nome;
+    private String senha;
     private TipoDadosFuncionario dados;
     private TipoPg tipoPagto;
     private Boolean excluirUser;
@@ -12,8 +13,9 @@ public class Funcionario {
 
     
     // Construtor da classe Funcionario
-    public Funcionario(String nome, TipoDadosFuncionario dados, TipoPg tipoPagto) {
+    public Funcionario(String nome, String senha, TipoDadosFuncionario dados, TipoPg tipoPagto) {
         this.nome = nome;
+        this.senha = senha;
         this.dados = dados;
         this.tipoPagto = tipoPagto;
         this.excluirUser = false; // Default é não excluir
@@ -67,6 +69,14 @@ public class Funcionario {
         this.nome = nome;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public TipoDadosFuncionario getDados() {
         return dados;
     }
@@ -118,5 +128,12 @@ public class Funcionario {
 
     public void setExcluirUser(Boolean excluirUser) {
         this.excluirUser = excluirUser;
+    }
+
+    public boolean login(String n, String s){
+        if (n.equals(this.nome) && s.equals(this.senha)){
+            return true;
+        }
+        return false;
     }
 }

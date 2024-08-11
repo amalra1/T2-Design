@@ -88,7 +88,7 @@ public class ControladorFuncionario {
                 return;
         }
 
-        Funcionario funcionario = new Funcionario((String) r.get("nome"), dados, tp);
+        Funcionario funcionario = new Funcionario((String) r.get("nome"), (String) r.get("senha"), dados, tp);
         lFuncionarios.adicionarFuncionario(funcionario);
         view.exibirMensagem("Funcionário adicionado com sucesso!");
     }

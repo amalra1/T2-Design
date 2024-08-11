@@ -29,6 +29,8 @@ public class FuncionarioView {
 
         System.out.print("Nome: ");
         retorno.put("nome", scanner.nextLine());
+        System.out.print("Senha: ");
+        retorno.put("senha", scanner.nextLine());
         System.out.print("CPF: ");
         retorno.put("cpf", scanner.nextLine());
         System.out.print("Endereço: ");
