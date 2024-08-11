@@ -10,6 +10,7 @@ public class Home {
     public Map<String, Object> view() {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Menu Principal");
         System.out.println("Selecione uma opção:");
         System.out.println("1. Gerenciar Funcionários");
         System.out.println("2. Gerenciar Projetos");
@@ -28,7 +29,6 @@ public class Home {
             scanner.nextLine(); // Consome a entrada inválida
         }
 
-        
         Map<String, Object> retorno = new HashMap<>();
         retorno.put("numero", option);
         retorno.put("texto", "asd");

@@ -17,6 +17,7 @@ public class Funcionario {
         this.dados = dados;
         this.tipoPagto = tipoPagto;
         this.excluirUser = false; // Default é não excluir
+        this.gerarID();
     }
 
     // Método para gerar um ID para o funcionário
