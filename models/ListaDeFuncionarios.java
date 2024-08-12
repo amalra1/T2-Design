@@ -15,7 +15,8 @@ public class ListaDeFuncionarios {
 
     // Método para adicionar um funcionário à lista
     public void adicionarFuncionario(Funcionario funcionario) {
-        while(getFuncionarioPorID(funcionario.getID()) != null){
+        // Gera um novo ID se o ID já estiver em uso
+        while (getFuncionarioPorID(funcionario.getID()) != null) {
             funcionario.gerarID();
         }
         funcionarios.add(funcionario);
@@ -28,7 +29,8 @@ public class ListaDeFuncionarios {
 
     // Método para obter a lista de funcionários
     public List<Funcionario> getListaDeFuncionarios() {
-        return new ArrayList<>(funcionarios); // Retorna uma cópia da lista para evitar modificações externas
+        // Retorna uma cópia da lista para evitar modificações externas
+        return new ArrayList<>(funcionarios);
     }
 
     // Método para obter um funcionário pelo ID
@@ -41,6 +43,17 @@ public class ListaDeFuncionarios {
         return null; // Retorna null se o funcionário com o ID especificado não for encontrado
     }
 
+    // Método para obter um funcionário pelo nome
+    public Funcionario getFuncionarioPorNome(String nome) {
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getNome().equalsIgnoreCase(nome)) {
+                return funcionario;
+            }
+        }
+        return null; // Retorna null se o funcionário com o nome especificado não for encontrado
+    }
+
+    // Método para enviar o cartão de ponto
     public void enviaCartao(TipoData dataAtual) {
         for (Funcionario funcionario : funcionarios) {
             if (!funcionario.isCartaoEnviado()) {
@@ -49,12 +62,13 @@ public class ListaDeFuncionarios {
         }
     }
 
-    public Funcionario login(String nome, String senha){
-        for (Funcionario f : funcionarios) {
-            if (f.login(nome, senha)){
-                return f;
+    // Método para autenticar o login de um funcionário
+    public Funcionario login(String nome, String senha) {
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.login(nome, senha)) {
+                return funcionario;
             }
         }
-        return null;
+        return null; // Retorna null se o login falhar
     }
 }

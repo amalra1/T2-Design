@@ -9,6 +9,8 @@ import models.TipoDadosFuncionario;
 import models.TipoPg;
 import views.Home;
 import views.LoginView;
+import views.PagamentoView;
+import controllers.ControladorPagamento;
 import controllers.ControladorLogin;
 
 public class Main {
@@ -23,19 +25,29 @@ public class Main {
         empresa.insereDadosFuncionario(df, "teste", TipoPg.CHEQUE);
         boolean running = true;
 
+        empresa.insereDadosFuncionario(new TipoDadosFuncionario("Funcionario1","asd", "asd", "asd", "asd"), "senha123", TipoPg.DEPOSITO_DIRETO);
+
         // Inicialize a view e o controller
         LoginView loginView = new LoginView();
         ControladorLogin loginController = new ControladorLogin(empresa, loginView);
 
         boolean continuar = true;
         int acao = 0;
+        boolean logado = false;
         while (continuar) {
-            acao = loginController.iniciar();
+            if (!logado)
+                acao = loginController.iniciar();
 
             switch ((int)acao) {
                 case 1: //acoes de gerente
+                    logado = true;
                     break;
                 case 2: // acoes de funcionario
+                    logado = true;
+                    System.out.println("Funcionário logado.");
+                    PagamentoView pagamentoView = new PagamentoView();
+                    ControladorPagamento controladorPagamento = new ControladorPagamento(empresa, pagamentoView);
+                    controladorPagamento.alterarTipoPagamento();
                     break;
                 case 3: // encerra
                     continuar = false;
