@@ -31,6 +31,8 @@ public class Main {
         teste.put("outrasDeducoes", 0);
         teste.put("taxaHoraria", 1);
         teste.put("tipo", "horista");
+        teste.put("agenciaBancaria", "teste");
+        teste.put("numContaBancaria", "teste");
 
         empresa.insereDadosFuncionario(teste);
         boolean running = true;
@@ -60,9 +62,6 @@ public class Main {
                     ControladorFuncionario cf = new ControladorFuncionario(empresa, fv);
                     if(cf.iniciar() == 4)
                         logado = false;
-/*                     PagamentoView pagamentoView = new PagamentoView();   
-                    ControladorPagamento controladorPagamento = new ControladorPagamento(empresa, pagamentoView);
-                    controladorPagamento.alterarTipoPagamento(); */
                     break;
                 case 3: // encerra
                     continuar = false;

@@ -9,9 +9,11 @@ public class TipoDadosFuncionario {
     private String email;
     private double deducaoPadrao;
     private double outrasDeducoes;
+    private String numContaBancaria;
+    private String agenciaBancaria;
 
     // Construtor
-    public TipoDadosFuncionario(String nome, String cpf, String endereco, String telefone, String email, double deducaoPadrao, double outrasDeducoes) {
+    public TipoDadosFuncionario(String nome, String cpf, String endereco, String telefone, String email, double deducaoPadrao, double outrasDeducoes, String numContaBancaria, String agenciaBancaria) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
@@ -19,6 +21,8 @@ public class TipoDadosFuncionario {
         this.email = email;
         this.deducaoPadrao = deducaoPadrao;
         this.outrasDeducoes = outrasDeducoes;
+        this.agenciaBancaria = agenciaBancaria;
+        this.numContaBancaria = numContaBancaria;
     }
 
     // Getters e Setters
@@ -78,8 +82,25 @@ public class TipoDadosFuncionario {
         this.outrasDeducoes = outrasDeducoes;
     }
 
+    public String getNumContaBancaria() {
+        return numContaBancaria;
+    }
+
+    public void setNumContaBancaria(String numContaBancaria) {
+        this.numContaBancaria = numContaBancaria;
+    }
+
+    public String getAgenciaBancaria() {
+        return agenciaBancaria;
+    }
+
+    public void setAgenciaBancaria(String agenciaBancaria) {
+        this.agenciaBancaria = agenciaBancaria;
+    }
+
     @Override
     public String toString() {
-        return "Nome: " + nome + ", CPF: " + cpf + ", Endereço: " + endereco + ", Telefone: " + telefone + ", Email: " + email;
+        return "Nome: " + nome + ", CPF: " + cpf + ", Endereço: " + endereco + ", Telefone: " + telefone + ", Email: "
+                + email;
     }
 }

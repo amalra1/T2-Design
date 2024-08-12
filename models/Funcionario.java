@@ -139,4 +139,29 @@ public abstract class Funcionario {
         }
         return false;
     }
+
+    public String getEndereco() {
+        return dados.getEndereco();
+    }
+    
+    public void setEndereco(String endereco) {
+        dados.setEndereco(endereco);
+    }
+    
+    public String getContaBancaria() {
+        return dados.getNumContaBancaria();
+    }
+
+    public void setContaBancaria(String contaBancaria) {
+        dados.setNumContaBancaria(contaBancaria);
+    }
+
+    public String getAgenciaBancaria(){
+        return dados.getAgenciaBancaria();
+    }
+
+    public void setAgenciaBancaria(String agenciaBancaria){
+        dados.setAgenciaBancaria(agenciaBancaria);
+    }
 }
+

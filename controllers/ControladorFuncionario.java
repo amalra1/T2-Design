@@ -32,27 +32,13 @@ public class ControladorFuncionario {
             switch (opcao) {
                 case 1:
                     System.out.println("Calma lá paizao.");
-                    //h.clearScreen();
-                    //adicionarFuncionario();
                     break;
                 case 2:
-                    //h.clearScreen();
-                    //atualizarFuncionario();
                     alterarTipoPagamento();
                     break;
                 case 3:
                     System.out.println("Saindo...");
                     running = false;
-                    //h.clearScreen();
-                    //listarFuncionarios();
-                    break;
-                case 4:
-                    //h.clearScreen();
-                    //enviarCartaoPonto();
-                    break;
-                case 5:
-                    running = false;
-                    view.exibirMensagem("Saindo do sistema. Até logo!");
                     break;
                 default:
                     view.exibirMensagem("Opção inválida. Tente novamente.");
@@ -62,8 +48,8 @@ public class ControladorFuncionario {
     }
 
     private int lerOpcao() {
-        Scanner scanner = new Scanner(System.in);        
-        
+        Scanner scanner = new Scanner(System.in);
+
         int option = -1;
         if (scanner.hasNextInt()) {
             option = scanner.nextInt();
@@ -118,23 +104,48 @@ public class ControladorFuncionario {
         }
     }
 
-    // Método para iniciar o processo de alteração de tipo de pagamento
     public void alterarTipoPagamento() {
         // Buscar o funcionário pelo nome
         String nomeFuncionario = view.requisitarNomeFuncionario();
         Funcionario funcionario = empresa.getListaDeFuncionarios().getFuncionarioPorNome(nomeFuncionario);
-        System.out.println("Seu metodo de recebimento atual é: " + funcionario.getTipoPagto());
-        TipoPg novoTipoPagamento = view.selecionarTipoPagamento();
-        /* comparar com o id do usuario atual pra ver se ele nao ta tentando mexer com outro user */
+
         // Verifica se o funcionário foi encontrado
         if (funcionario != null) {
-            // Altera o tipo de pagamento do funcionário
-            funcionario.setTipoPagto(novoTipoPagamento);
-            System.out.println("Tipo de pagamento alterado para: " + novoTipoPagamento.getDescricao());
-            return;
+            // Exibe o método de recebimento atual
+            System.out.println("Seu método de recebimento atual é: " + funcionario.getTipoPagto());
+            TipoPg novoTipoPagamento = view.selecionarTipoPagamento();
+
+            if (novoTipoPagamento == TipoPg.CHEQUE) {
+                // Pede confirmação do endereço ou atualização
+                int retorno = view.informaEndereco(funcionario);
+                if (retorno == 1) { // Endereço ainda é o mesmo
+                    System.out.println("Cheque será enviado para o endereço já cadastrado.");
+                } else if (retorno == 2) { // Novo endereço
+                    System.out.print("Digite o endereço para envio do cheque: ");
+                    String endereco = view.getScanner().nextLine();
+                    funcionario.setEndereco(endereco);
+                    System.out.println("Cheque será enviado para o novo endereço.");
+                }
+                funcionario.setTipoPagto(novoTipoPagamento);
+
+            } else if (novoTipoPagamento == TipoPg.DEPOSITO_DIRETO) {
+                // Solicita os dados bancários do funcionário
+                String contaBancaria = view.solicitaConta();
+                String agencia = view.solicitaAgencia();
+                funcionario.setTipoPagto(novoTipoPagamento);
+                funcionario.setContaBancaria(contaBancaria);
+                funcionario.setAgenciaBancaria(agencia);
+                System.out.println("Tipo de pagamento alterado para: " + novoTipoPagamento.getDescricao());
+
+            } else if (novoTipoPagamento == TipoPg.RETIRADA_ESCRITORIO) {
+                System.out.println("Favor passar no RH para retirar o cheque.");
+                funcionario.setTipoPagto(novoTipoPagamento);
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+                alterarTipoPagamento();
+            }
         } else {
             System.out.println("Funcionário com o nome " + nomeFuncionario + " não encontrado.");
-            return;
         }
     }
 }

@@ -17,22 +17,26 @@ public class FuncionarioView {
         this.scanner = new Scanner(System.in);
     }
 
+    public Scanner getScanner() {
+        return scanner;
+    }
+
     public void exibirMenu() {
         System.out.println("");
         System.out.println("Menu de Funcionários");
-        //System.out.println("1. Adicionar Funcionário");
-        //System.out.println("2. Atualizar Funcionário");
-        //System.out.println("3. Listar Funcionários");
+        // System.out.println("1. Adicionar Funcionário");
+        // System.out.println("2. Atualizar Funcionário");
+        // System.out.println("3. Listar Funcionários");
         System.out.println("1. Enviar Cartão de Ponto");
         System.out.println("2. Alterar método de pagamento");
         System.out.println("3. Sair");
         System.out.print("Opção: ");
     }
 
-    public Map<String, Object> adicionarFuncionario(){
+    public Map<String, Object> adicionarFuncionario() {
         Map<String, Object> retorno = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-  
+
         System.out.println("Adicionar Funcionario");
 
         System.out.print("Nome: ");
@@ -51,33 +55,33 @@ public class FuncionarioView {
         retorno.put("deducaoPadrao", scanner.nextDouble());
         System.out.print("Outras Deducoes: ");
         retorno.put("outrasDeducoes", scanner.nextDouble());
-        scanner.nextLine();  
+        scanner.nextLine();
 
         System.out.println("Tipo de Funcionario (1: Horista, 2: Assalariado, 3: Comissionado): ");
         int tipoFuncionario = scanner.nextInt();
-        scanner.nextLine();  // Consumir a nova linha após o número
+        scanner.nextLine(); // Consumir a nova linha após o número
 
         // Coletar informacoes adicionais com base no tipo de funcionario
         switch (tipoFuncionario) {
             case 1: // Horista
                 System.out.print("Taxa Horaria: ");
                 retorno.put("taxaHoraria", scanner.nextDouble());
-                scanner.nextLine();  // Consumir a nova linha após o número
+                scanner.nextLine(); // Consumir a nova linha após o número
                 retorno.put("tipo", "horista");
                 break;
             case 2: // Assalariado
                 System.out.print("Salario: ");
                 retorno.put("salario", scanner.nextDouble());
-                scanner.nextLine();  // Consumir a nova linha após o número
+                scanner.nextLine(); // Consumir a nova linha após o número
                 retorno.put("tipo", "assalariado");
                 break;
             case 3: // Comissionado
                 System.out.print("Salario: ");
                 retorno.put("salario", scanner.nextDouble());
-                scanner.nextLine();  // Consumir a nova linha após o número
+                scanner.nextLine(); // Consumir a nova linha após o número
                 System.out.print("Taxa de Comissao: ");
                 retorno.put("taxaComissao", scanner.nextDouble());
-                scanner.nextLine();  // Consumir a nova linha após o número
+                scanner.nextLine(); // Consumir a nova linha após o número
                 retorno.put("tipo", "comissionado");
                 break;
             default:
@@ -88,7 +92,7 @@ public class FuncionarioView {
         return retorno;
     }
 
-    public Map<String, Object> getId(String mensagem){
+    public Map<String, Object> getId(String mensagem) {
         Map<String, Object> retorno = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -98,18 +102,18 @@ public class FuncionarioView {
         return retorno;
     }
 
-    public Map<String, Object> atualizarFuncionario(TipoDadosFuncionario f){
+    public Map<String, Object> atualizarFuncionario(TipoDadosFuncionario f) {
         Map<String, Object> retorno = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        
+
         String r;
 
         System.out.println("Atulizar Funcionario (campos em branco não serão alterados)");
-        
+
         System.out.println("Nome atual: " + f.getNome());
         System.out.print("Nome: ");
         r = scanner.nextLine();
-        if (r.equals("")){
+        if (r.equals("")) {
             retorno.put("nome", f.getNome());
         } else {
             retorno.put("nome", r);
@@ -118,16 +122,16 @@ public class FuncionarioView {
         System.out.println("CPF atual: " + f.getCpf());
         System.out.print("CPF: ");
         r = scanner.nextLine();
-        if (r.equals("")){
+        if (r.equals("")) {
             retorno.put("cpf", f.getCpf());
         } else {
             retorno.put("cpf", r);
         }
-        
+
         System.out.println("Endereco atual: " + f.getEndereco());
         System.out.print("Endereço: ");
         r = scanner.nextLine();
-        if (r.equals("")){
+        if (r.equals("")) {
             retorno.put("endereco", f.getEndereco());
         } else {
             retorno.put("endereco", r);
@@ -136,7 +140,7 @@ public class FuncionarioView {
         System.out.println("Telefone atual: " + f.getTelefone());
         System.out.print("Telefone: ");
         r = scanner.nextLine();
-        if (r.equals("")){
+        if (r.equals("")) {
             retorno.put("telefone", f.getTelefone());
         } else {
             retorno.put("telefone", r);
@@ -145,7 +149,7 @@ public class FuncionarioView {
         System.out.println("Email atual: " + f.getEmail());
         System.out.print("Email: ");
         r = scanner.nextLine();
-        if (r.equals("")){
+        if (r.equals("")) {
             retorno.put("email", f.getEmail());
         } else {
             retorno.put("email", r);
@@ -153,7 +157,6 @@ public class FuncionarioView {
 
         return retorno;
     }
-
 
     public void exibirListaFuncionarios(ListaDeFuncionarios funcionarios) {
         System.out.println("Lista de Funcionários:");
@@ -179,6 +182,7 @@ public class FuncionarioView {
         for (int i = 0; i < TipoPg.values().length; i++) {
             System.out.println((i + 1) + ". " + TipoPg.values()[i].getDescricao());
         }
+        System.out.print("Opção: ");
         int opcao = scanner.nextInt();
         scanner.nextLine(); // Consumir a quebra de linha
         if (opcao > 0 && opcao <= TipoPg.values().length) {
@@ -188,7 +192,33 @@ public class FuncionarioView {
             return selecionarTipoPagamento();
         }
     }
-    
-    
-    
+
+    public int informaEndereco(Funcionario f) {
+        System.out.println("Seu endereco atual é " + f.getEndereco() + "?");
+        System.out.println("1. Sim");
+        System.out.println("2. Não");
+
+        int opcao = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+
+        if (opcao == 1) {
+            return 1;
+        } else if (opcao == 2) {
+            return 2;
+        } else {
+            System.out.println("Opção inválida. Tente novamente.");
+            return informaEndereco(f);
+        }
+    }
+
+    // Método para solicitar os dados bancários do funcionário
+    public String solicitaConta() {
+        System.out.print("Digite o numero da conta para depósito: ");
+        return scanner.nextLine();
+    }
+
+    public String solicitaAgencia() {
+        System.out.print("Digite o numero da agencia para depósito: ");
+        return scanner.nextLine();
+    }
 }

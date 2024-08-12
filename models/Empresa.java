@@ -26,10 +26,12 @@ public class Empresa {
         double deducaoPadrao = ((Number) dadosFuncionario.get("deducaoPadrao")).doubleValue();
         double outrasDeducoes = ((Number) dadosFuncionario.get("outrasDeducoes")).doubleValue();
         String tipo = (String) dadosFuncionario.get("tipo");
+        String agenciaBancaria = (String) dadosFuncionario.get("agenciaBancaria");
+        String numContaBancaria = (String) dadosFuncionario.get("numContaBancaria");
         TipoPg tPg = TipoPg.CHEQUE;
 
         // Criar TipoDadosFuncionario com os dados fornecidos
-        TipoDadosFuncionario tipoDadosFuncionario = new TipoDadosFuncionario(nome, cpf, endereco, telefone, email, deducaoPadrao, outrasDeducoes);
+        TipoDadosFuncionario tipoDadosFuncionario = new TipoDadosFuncionario(nome, cpf, endereco, telefone, email, deducaoPadrao, outrasDeducoes, numContaBancaria, agenciaBancaria);
 
         // Criar Funcionario baseado no tipo
         Funcionario novoFuncionario = null;
