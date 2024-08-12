@@ -1,6 +1,7 @@
 package models;
+import java.io.Serializable;
 
-public class CartaoDePonto {
+public class CartaoDePonto implements Serializable {
 
     // Atributos da classe CartaoDePonto
     private TipoHoras horas;

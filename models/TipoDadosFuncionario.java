@@ -1,6 +1,8 @@
 package models;
 
-public class TipoDadosFuncionario {
+import java.io.Serializable;
+
+public class TipoDadosFuncionario implements Serializable {
 
     private String nome;
     private String cpf;

@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class TipoID {
+public class TipoID implements Serializable {
     private String id;
 
     // Construtor privado para garantir a geração de ID único

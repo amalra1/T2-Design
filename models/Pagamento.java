@@ -1,6 +1,7 @@
 package models;
+import java.io.Serializable;
 
-public class Pagamento {
+public class Pagamento implements Serializable {
 
     // Atributos da classe Pagamento
     private String nome;

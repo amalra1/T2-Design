@@ -1,6 +1,7 @@
 package models;
+import java.io.Serializable;
 
-public class Gerente {
+public class Gerente implements Serializable {
     private String nome;
     private String departamento;
     private FolhaDePagamento folhaDePagamento;

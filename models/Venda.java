@@ -1,6 +1,8 @@
 package models;
 
-public class Venda {
+import java.io.Serializable;
+
+public class Venda implements Serializable {
 
     // Atributo da classe Venda
     private TipoValor valor;

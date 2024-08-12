@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class TipoData {
+public class TipoData implements Serializable {
     private LocalDate data;
 
     public TipoData(LocalDate data) {

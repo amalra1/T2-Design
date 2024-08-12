@@ -1,6 +1,8 @@
 package models;
+import java.io.Serializable;
 
-public abstract class Funcionario {
+
+public abstract class Funcionario implements Serializable {
 
     // Atributos da classe Funcionario
     private String nome;

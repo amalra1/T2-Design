@@ -1,6 +1,7 @@
 package models;
 
-public class Ponto {
+import java.io.Serializable;
+public class Ponto implements Serializable {
 
     // Atributos da classe Ponto
     private TipoData inicio;

@@ -1,6 +1,8 @@
 package models;
 
-public class Projeto {
+import java.io.Serializable;
+
+public class Projeto implements Serializable {
 
     // Atributo da classe Projeto
     private String nome;

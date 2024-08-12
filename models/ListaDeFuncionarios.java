@@ -2,8 +2,9 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ListaDeFuncionarios {
+public class ListaDeFuncionarios implements Serializable {
 
     // Atributo para armazenar a lista de funcionários
     private List<Funcionario> funcionarios;

@@ -1,8 +1,10 @@
 package models;
 
+import java.io.Serial;
 import java.util.Map;
+import java.io.Serializable;
 
-public class Empresa {
+public class Empresa implements Serializable {
     private String nome;
     private BaseDeDados baseDeDados;
     private Gerente gerente;

@@ -1,6 +1,8 @@
 package models;
 
-public class TipoHoras {
+import java.io.Serializable;
+
+public class TipoHoras implements Serializable {
     private int horas;
     private int minutos;
 

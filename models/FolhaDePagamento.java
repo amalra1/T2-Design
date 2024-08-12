@@ -2,8 +2,9 @@ package models;
 
 // Importação de classes necessárias
 import java.util.List;
+import java.io.Serializable;
 
-public class FolhaDePagamento {
+public class FolhaDePagamento implements Serializable {
 
     // Atributo que armazena a lista de pagamentos
     private List<Pagamento> pagamentos;

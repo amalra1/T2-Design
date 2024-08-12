@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class TipoValor {
+public class TipoValor implements Serializable {
     private BigDecimal valor;
 
     // Construtor
