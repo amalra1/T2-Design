@@ -111,11 +111,16 @@ public abstract class Funcionario implements Serializable {
         return cartaoPonto != null && "enviado".equals(cartaoPonto.getStatus());
     }
 
-    public void enviarCartao(TipoData dataAtual) {
+    public void enviarCartao(TipoData dataAtual, TipoHoras horasTrabalhadas) {
         if (cartaoPonto != null) {
-            cartaoPonto.atribuiData(dataAtual); // Define a data de envio
-            cartaoPonto.confirmaEnvio();        // Marca o cartão de ponto como enviado
-            cartaoPonto.salvaCartao();          // Salva o cartão de ponto no sistema
+            cartaoPonto.confirmaEnvio(); // Marca o cartão de ponto como enviado
+            cartaoPonto.salvaCartao(); // Salva o cartão de ponto no sistema
+        } else {
+            cartaoPonto = new CartaoDePonto();
+            
+            cartaoPonto.setHoras(horasTrabalhadas);
+            cartaoPonto.confirmaEnvio(); // Marca o cartão de ponto como enviado
+            cartaoPonto.salvaCartao(); // Salva o cartão de ponto no sistema
         }
     }
 
@@ -148,6 +153,10 @@ public abstract class Funcionario implements Serializable {
 
     public void setAgenciaBancaria(String agenciaBancaria){
         dados.setAgenciaBancaria(agenciaBancaria);
+    }
+
+    public CartaoDePonto getCartaoDePonto() {
+        return this.cartaoPonto.getCartaoPonto();
     }
 }
 

@@ -3,10 +3,12 @@ package controllers;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
+
 import models.Empresa;
 import models.Funcionario;
 import models.ListaDeFuncionarios;
 import models.TipoData;
+import models.TipoHoras;
 import models.TipoPg;
 import views.FuncionarioView;
 import views.Home;
@@ -31,7 +33,7 @@ public class ControladorFuncionario {
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Calma lá paizao.");
+                    enviarCartaoPonto();
                     break;
                 case 2:
                     alterarTipoPagamento();
@@ -98,16 +100,48 @@ public class ControladorFuncionario {
 
     private void enviarCartaoPonto() {
         // Lógica para enviar cartão de ponto
-        String id = view.getId("Escreva o ID do usuario para enviar cartão ponto: ");
+        String nomeFuncionario = view.requisitarNomeFuncionario();
+        Funcionario funcionario = empresa.getListaDeFuncionarios().getFuncionarioPorNome(nomeFuncionario);
+        
         TipoData dataAtual = new TipoData(LocalDate.now());
-        Funcionario f = lFuncionarios.getFuncionarioPorID(id);
-        if (f != null) {
-            f.enviarCartao(dataAtual);
-            view.exibirMensagem("Cartão de ponto enviado com sucesso!");
+
+        if (funcionario != null) {
+            if (!funcionario.isCartaoEnviado()) {
+                String horasTrabalhadas = view.solicitarHorasTrabalhadas(dataAtual);
+                if (verificarFormatoHorario(horasTrabalhadas)) {
+                    int horas = Integer.parseInt(horasTrabalhadas.substring(0, 2));
+                    int minutos = Integer.parseInt(horasTrabalhadas.substring(3, 5));
+                    TipoHoras horaMinutoTrabalhado = new TipoHoras(horas, minutos);
+    
+                    funcionario.enviarCartao(dataAtual, horaMinutoTrabalhado);
+                    view.exibirMensagem("Cartão de ponto enviado com sucesso!");
+                } else {
+                    view.exibirMensagem("Formato de hora incorreto!");
+                }
+            } else {
+                view.exibirMensagem("Cartão Ponto já enviado!");
+            }
         } else {
             view.exibirMensagem("Funcionário não encontrado.");
-
         }
+    }
+
+    public static boolean verificarFormatoHorario(String horario) {
+        // Verifica o padrão de formato HH:MM usando regex
+        if (!horario.matches("\\d{2}:\\d{2}")) {
+            return false;
+        }
+
+        // Extrai horas e minutos
+        int horas = Integer.parseInt(horario.substring(0, 2));
+        int minutos = Integer.parseInt(horario.substring(3, 5));
+
+        // Verifica se horas estão entre 00 e 23 e minutos entre 00 e 59
+        if (horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
+            return false;
+        }
+
+        return true;
     }
 
     public void alterarTipoPagamento() {

@@ -1,10 +1,6 @@
 package controllers;
 
-import java.util.Map;
-import java.util.Scanner;
-
 import models.Empresa;
-import models.Funcionario;
 import views.FuncionarioView;
 import views.GerenteView;
 
@@ -34,7 +30,7 @@ public class ControladorGerente {
             switch (opcao) {
                 case "1": // Criar Relatório administrativo
                     limpaTela();
-                    System.out.println("Calma lá paizao.");
+                    System.out.println("Caso de uso não implementado.");
                     break;
 
                 case "2": // Manter informações dos Funcionários

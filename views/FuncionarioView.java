@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import models.Funcionario;
 import models.ListaDeFuncionarios;
-import models.TipoDadosFuncionario;
+import models.TipoData;
 import models.TipoPg;
 
 public class FuncionarioView {
@@ -198,6 +198,11 @@ public class FuncionarioView {
 
     public String solicitaAgencia() {
         System.out.print("Digite o numero da agencia para depósito: ");
+        return scanner.nextLine();
+    }
+    
+    public String solicitarHorasTrabalhadas(TipoData dataAtual) {
+        System.out.print("Digite o numero de horas trabalhadas para a data " + dataAtual + " no formato HH:mm: ");
         return scanner.nextLine();
     }
 }
