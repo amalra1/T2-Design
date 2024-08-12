@@ -27,7 +27,7 @@ public class ControladorGerente {
     }
 
 /* ver como esta o fluxo do resto do programa pra saber se basta retornar um inteiro aqui e prosseguir com o resto */
-    public void iniciar() {
+    public int iniciar() {
         while (true) {
             String opcao = gerenteView.exibirMenu();
 
@@ -70,8 +70,8 @@ public class ControladorGerente {
                     }
                     break;
                 case "3": // Sair
-                    System.out.println("Saindo...");
-                    return;
+                    System.out.println("Deslogando...");
+                    return 4;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
                     break;

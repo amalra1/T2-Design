@@ -8,16 +8,24 @@ import java.util.Scanner;
 import models.Funcionario;
 import models.ListaDeFuncionarios;
 import models.TipoDadosFuncionario;
+import models.TipoPg;
 
 public class FuncionarioView {
+    private Scanner scanner;
+
+    public FuncionarioView() {
+        this.scanner = new Scanner(System.in);
+    }
+
     public void exibirMenu() {
         System.out.println("");
         System.out.println("Menu de Funcionários");
-        System.out.println("1. Adicionar Funcionário");
-        System.out.println("2. Atualizar Funcionário");
-        System.out.println("3. Listar Funcionários");
-        System.out.println("4. Enviar Cartão de Ponto");
-        System.out.println("5. Sair");
+        //System.out.println("1. Adicionar Funcionário");
+        //System.out.println("2. Atualizar Funcionário");
+        //System.out.println("3. Listar Funcionários");
+        System.out.println("1. Enviar Cartão de Ponto");
+        System.out.println("2. Alterar método de pagamento");
+        System.out.println("3. Sair");
         System.out.print("Opção: ");
     }
 
@@ -151,11 +159,36 @@ public class FuncionarioView {
         System.out.println("Lista de Funcionários:");
         List<Funcionario> fs = funcionarios.getListaDeFuncionarios();
         for (Funcionario f : fs) {
-            System.out.println("ID: " + f.getID() + ", Nome: " + f.getNome());
+            System.out.println("ID: " + f.getID() + ", Nome: " + f.getNome() + ", Pagamento: " + f.getTipoPagto());
         }
     }
 
     public void exibirMensagem(String mensagem) {
         System.out.println(mensagem);
     }
+
+    // Requisita o nome do funcionário
+    public String requisitarNomeFuncionario() {
+        System.out.print("Digite o nome do funcionário: ");
+        return scanner.nextLine();
+    }
+
+    // Exibe as opções de tipo de pagamento e requisita uma seleção do usuário
+    public TipoPg selecionarTipoPagamento() {
+        System.out.println("Selecione o novo tipo de pagamento:");
+        for (int i = 0; i < TipoPg.values().length; i++) {
+            System.out.println((i + 1) + ". " + TipoPg.values()[i].getDescricao());
+        }
+        int opcao = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+        if (opcao > 0 && opcao <= TipoPg.values().length) {
+            return TipoPg.values()[opcao - 1];
+        } else {
+            System.out.println("Opção inválida. Tente novamente.");
+            return selecionarTipoPagamento();
+        }
+    }
+    
+    
+    
 }

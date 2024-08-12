@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.Scanner;
 import models.Empresa;
 import models.Gerente;
+import models.TipoPg;
+import views.FuncionarioView;
 import views.GerenteView;
 import views.LoginView;
-import views.PagamentoView;
-import controllers.ControladorPagamento;
+import models.TipoDadosFuncionario;
 import controllers.ControladorLogin;
+import controllers.ControladorFuncionario;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,8 +35,6 @@ public class Main {
         empresa.insereDadosFuncionario(teste);
         boolean running = true;
 
-        empresa.insereDadosFuncionario(new TipoDadosFuncionario("Funcionario1","asd", "asd", "asd", "asd"), "senha123", TipoPg.DEPOSITO_DIRETO);
-
         // Inicialize a view e o controller
         LoginView loginView = new LoginView();
         ControladorLogin loginController = new ControladorLogin(empresa, loginView);
@@ -51,14 +51,18 @@ public class Main {
                     logado = true;
                     GerenteView gv = new GerenteView();
                     ControladorGerente cg = new ControladorGerente(empresa, gv);
-                    cg.iniciar();
+                    if(cg.iniciar() == 4)
+                        logado = false;
                     break;
                 case 2: // acoes de funcionario
                     logado = true;
-                    System.out.println("Funcionário logado.");
-                    PagamentoView pagamentoView = new PagamentoView();
+                    FuncionarioView fv = new FuncionarioView();
+                    ControladorFuncionario cf = new ControladorFuncionario(empresa, fv);
+                    if(cf.iniciar() == 4)
+                        logado = false;
+/*                     PagamentoView pagamentoView = new PagamentoView();   
                     ControladorPagamento controladorPagamento = new ControladorPagamento(empresa, pagamentoView);
-                    controladorPagamento.alterarTipoPagamento();
+                    controladorPagamento.alterarTipoPagamento(); */
                     break;
                 case 3: // encerra
                     continuar = false;

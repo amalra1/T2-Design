@@ -7,6 +7,7 @@ import models.Empresa;
 import models.Funcionario;
 import models.ListaDeFuncionarios;
 import models.TipoData;
+import models.TipoPg;
 import views.FuncionarioView;
 import views.Home;
 
@@ -21,7 +22,7 @@ public class ControladorFuncionario {
         this.view = funcionarioView;
     }
 
-    public void iniciar() {
+    public int iniciar() {
         Home h = new Home();
         boolean running = true;
         while (running) {
@@ -30,20 +31,24 @@ public class ControladorFuncionario {
 
             switch (opcao) {
                 case 1:
-                    h.clearScreen();
-                    adicionarFuncionario();
+                    System.out.println("Calma lá paizao.");
+                    //h.clearScreen();
+                    //adicionarFuncionario();
                     break;
                 case 2:
-                    h.clearScreen();
-                    atualizarFuncionario();
+                    //h.clearScreen();
+                    //atualizarFuncionario();
+                    alterarTipoPagamento();
                     break;
                 case 3:
-                    h.clearScreen();
-                    listarFuncionarios();
+                    System.out.println("Saindo...");
+                    running = false;
+                    //h.clearScreen();
+                    //listarFuncionarios();
                     break;
                 case 4:
-                    h.clearScreen();
-                    enviarCartaoPonto();
+                    //h.clearScreen();
+                    //enviarCartaoPonto();
                     break;
                 case 5:
                     running = false;
@@ -53,6 +58,7 @@ public class ControladorFuncionario {
                     view.exibirMensagem("Opção inválida. Tente novamente.");
             }
         }
+        return 4;
     }
 
     private int lerOpcao() {
@@ -109,6 +115,26 @@ public class ControladorFuncionario {
         } else {
             view.exibirMensagem("Funcionário não encontrado.");
 
+        }
+    }
+
+    // Método para iniciar o processo de alteração de tipo de pagamento
+    public void alterarTipoPagamento() {
+        // Buscar o funcionário pelo nome
+        String nomeFuncionario = view.requisitarNomeFuncionario();
+        Funcionario funcionario = empresa.getListaDeFuncionarios().getFuncionarioPorNome(nomeFuncionario);
+        System.out.println("Seu metodo de recebimento atual é: " + funcionario.getTipoPagto());
+        TipoPg novoTipoPagamento = view.selecionarTipoPagamento();
+        /* comparar com o id do usuario atual pra ver se ele nao ta tentando mexer com outro user */
+        // Verifica se o funcionário foi encontrado
+        if (funcionario != null) {
+            // Altera o tipo de pagamento do funcionário
+            funcionario.setTipoPagto(novoTipoPagamento);
+            System.out.println("Tipo de pagamento alterado para: " + novoTipoPagamento.getDescricao());
+            return;
+        } else {
+            System.out.println("Funcionário com o nome " + nomeFuncionario + " não encontrado.");
+            return;
         }
     }
 }
