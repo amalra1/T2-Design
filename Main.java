@@ -2,66 +2,50 @@ import controllers.ControladorFuncionario;
 import java.util.Map;
 import java.util.Scanner;
 import models.Funcionario;
+import models.Empresa;
+import models.Gerente;
 import models.ListaDeFuncionarios;
 import models.TipoDadosFuncionario;
 import models.TipoPg;
 import views.Home;
+import views.LoginView;
+import controllers.ControladorLogin;
 
 public class Main {
     public static void main(String[] args) {
         TipoDadosFuncionario df = new TipoDadosFuncionario("teste", "asd", "asd", "asd", "asd");
-        Funcionario f = new Funcionario("teste", "teste", df, TipoPg.CHEQUE);
-        ListaDeFuncionarios lf = new ListaDeFuncionarios();
 
-        lf.adicionarFuncionario(f);
         Scanner scanner = new Scanner(System.in);
-        
 
+        Empresa empresa = new Empresa("Empresa", null,
+                new Gerente("admin", "admin", "Departamento", null));
+
+        empresa.insereDadosFuncionario(df, "teste", TipoPg.CHEQUE);
         boolean running = true;
-        System.out.println("Bem-vindo ao Sistema");
-        Home h = new Home();
-        ControladorFuncionario cFuncionario = new ControladorFuncionario();
 
-        Map<String, Object> retorno = h.login();
-        Funcionario nf = lf.login((String) retorno.get("nome"), (String) retorno.get("senha"));
+        // Inicialize a view e o controller
+        LoginView loginView = new LoginView();
+        ControladorLogin loginController = new ControladorLogin(empresa, loginView);
 
-        while (nf == null) { 
-            h.exibirMensagem("Login Incorreto!");
-            System.out.println("nome: " + (String) retorno.get("nome") + " senha: " + (String) retorno.get("senha"));
+        boolean continuar = true;
+        int acao = 0;
+        while (continuar) {
+            acao = loginController.iniciar();
 
-            retorno = h.login();
-            nf = lf.login((String) retorno.get("nome"), (String) retorno.get("senha"));
-        }
-
-        while (running) {
-            retorno = h.home();
-            int opcao = (int) retorno.get("numero");
-
-            switch (opcao) {
-                case 1: //funcionarios
-                    cFuncionario.iniciar();
-                    h.clearScreen();
+            switch ((int)acao) {
+                case 1: //acoes de gerente
                     break;
-                case 2: //Projetos
-                    h.clearScreen();
+                case 2: // acoes de funcionario
                     break;
-                case 3: //cartao ponto
-                    h.clearScreen();
-                    break;
-                case 4: //Folha de Pagamento
-                    h.clearScreen();
-                    break;
-                case 5: //Relatorios
-                    h.clearScreen();
-                    break;
-                case 6:
-                    running = false;
-                    h.exibirMensagem("Saindo do sistema. Até logo!");
+                case 3: // encerra
+                    continuar = false;
                     break;
                 default:
-                    h.exibirMensagem("Opção inválida. Tente novamente.");
+                    throw new AssertionError();
             }
         }
+
+        System.out.println("Programa encerrado.");
         scanner.close();
     }
 }

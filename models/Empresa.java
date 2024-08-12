@@ -16,8 +16,8 @@ public class Empresa {
     }
 
     // Método para inserir dados de um novo funcionário
-    public void insereDadosFuncionario(TipoDadosFuncionario dadosFuncionario, TipoPg tPg) {
-        Funcionario novoFuncionario = new Funcionario(dadosFuncionario.getNome(), dadosFuncionario, tPg);
+    public void insereDadosFuncionario(TipoDadosFuncionario dadosFuncionario, String senha, TipoPg tPg) {
+        Funcionario novoFuncionario = new Funcionario(dadosFuncionario.getNome(), senha, dadosFuncionario, tPg);
         listaDeFuncionarios.adicionarFuncionario(novoFuncionario);
     }
 
@@ -66,4 +66,13 @@ public class Empresa {
     public ListaDeFuncionarios getListaDeFuncionarios() {
         return listaDeFuncionarios;
     }
+
+    public boolean loginGerente(String nome, String senha) {
+        return gerente.login(nome, senha);
+    }
+
+    public Funcionario loginFuncionario(String nome, String senha) {
+        return listaDeFuncionarios.login(nome, senha);
+    }
+    
 }
