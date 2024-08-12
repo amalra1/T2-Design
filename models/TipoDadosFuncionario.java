@@ -7,14 +7,18 @@ public class TipoDadosFuncionario {
     private String endereco;
     private String telefone;
     private String email;
+    private double deducaoPadrao;
+    private double outrasDeducoes;
 
     // Construtor
-    public TipoDadosFuncionario(String nome, String cpf, String endereco, String telefone, String email) {
+    public TipoDadosFuncionario(String nome, String cpf, String endereco, String telefone, String email, double deducaoPadrao, double outrasDeducoes) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
+        this.deducaoPadrao = deducaoPadrao;
+        this.outrasDeducoes = outrasDeducoes;
     }
 
     // Getters e Setters
@@ -56,6 +60,22 @@ public class TipoDadosFuncionario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public double getDeducaoPadrao() {
+        return deducaoPadrao;
+    }
+
+    public void setDeducaoPadrao(double deducaoPadrao) {
+        this.deducaoPadrao = deducaoPadrao;
+    }
+
+    public double getOutrasDeducoes() {
+        return outrasDeducoes;
+    }
+
+    public void setOutrasDeducoes(double outrasDeducoes) {
+        this.outrasDeducoes = outrasDeducoes;
     }
 
     @Override
