@@ -64,19 +64,25 @@ public class ControladorFuncionario {
     public void adicionarFuncionario() {
         // Lógica para adicionar um novo funcionário
         Map<String, Object> r = view.adicionarFuncionario();
-        empresa.insereDadosFuncionario(r);
+        String id = empresa.insereDadosFuncionario(r);
 
         lFuncionarios = empresa.getListaDeFuncionarios();
-        view.exibirMensagem("Funcionário adicionado com sucesso!");
+        view.exibirMensagem("Funcionário adicionado com sucesso! ID: " + id);
     }
 
     public void atualizarFuncionario() {
         // Lógica para atualizar dados de um funcionário
+        String id = view.getId("Digite o ID do funcinario: ");
+        Funcionario f = lFuncionarios.getFuncionarioPorID(id);
+        Map<String, Object> r = view.atualizarFuncionario(f);
+        empresa.atualizaDadosFuncionario(id, r);
 
+        lFuncionarios = empresa.getListaDeFuncionarios();
+        view.exibirMensagem("Funcionário utualizado com sucesso!");
     }
 
     public void excluirFuncionario() {
-        String id = (String) view.getId("Escreva o ID do usuario que deseja excluir: ").get("id");
+        String id = view.getId("Escreva o ID do usuario que deseja excluir: ");
         Funcionario f = lFuncionarios.getFuncionarioPorID(id);
         if (f != null) {
             lFuncionarios.removerFuncionario(f);
@@ -92,7 +98,7 @@ public class ControladorFuncionario {
 
     private void enviarCartaoPonto() {
         // Lógica para enviar cartão de ponto
-        String id = (String) view.getId("Escreva o ID do usuario para enviar cartão ponto: ").get("id");
+        String id = view.getId("Escreva o ID do usuario para enviar cartão ponto: ");
         TipoData dataAtual = new TipoData(LocalDate.now());
         Funcionario f = lFuncionarios.getFuncionarioPorID(id);
         if (f != null) {

@@ -7,7 +7,6 @@ public abstract class Funcionario {
     private String senha;
     private TipoDadosFuncionario dados;
     private TipoPg tipoPagto;
-    private Boolean excluirUser;
     private TipoID id;    
     private CartaoDePonto cartaoPonto; // Supondo que um funcionário tenha um cartão de ponto associado
 
@@ -18,7 +17,6 @@ public abstract class Funcionario {
         this.senha = senha;
         this.dados = dados;
         this.tipoPagto = tipoPagto;
-        this.excluirUser = false; // Default é não excluir
         this.gerarID();
     }
 
@@ -41,19 +39,18 @@ public abstract class Funcionario {
         this.dados = dadosFuncionario;
     }
 
-    // Método para marcar o funcionário para exclusão
-    public void marcaParaExclusao(Boolean valor) {
-        this.excluirUser = valor;
-    }
-
     // Método para criar um cartão de ponto
     public CartaoDePonto criaCartaoPonto() {
         return new CartaoDePonto();
     }
 
     // Método para definir informações adicionais sobre o pagamento
-    public void setTipoPagtoInformacoesAdicionais(String info) {
-        // Implementação para definir informações adicionais sobre o pagamento
+    public void setTipoPagtoInformacoesAdicionais(TipoPg tPg) {
+        this.tipoPagto = tPg;
+    }
+
+    public TipoPg getTipoPagtoInformacoesAdicionais() {
+        return this.tipoPagto;
     }
 
     // Método para registrar um ponto
@@ -96,10 +93,6 @@ public abstract class Funcionario {
         this.tipoPagto = tipoPagto;
     }
 
-    public Boolean getExcluirUser() {
-        return excluirUser;
-    }
-
     // Método para obter o ID do funcionário
     public String getID() {
         return id.getID();
@@ -112,10 +105,6 @@ public abstract class Funcionario {
         }
     }
 
-    public void setParaExclusao(Boolean valor) {
-        this.excluirUser = valor;
-    }
-
     public boolean isCartaoEnviado() {
         return cartaoPonto != null && "enviado".equals(cartaoPonto.getStatus());
     }
@@ -126,11 +115,6 @@ public abstract class Funcionario {
             cartaoPonto.confirmaEnvio();        // Marca o cartão de ponto como enviado
             cartaoPonto.salvaCartao();          // Salva o cartão de ponto no sistema
         }
-    }
-    
-
-    public void setExcluirUser(Boolean excluirUser) {
-        this.excluirUser = excluirUser;
     }
 
     public boolean login(String n, String s){
