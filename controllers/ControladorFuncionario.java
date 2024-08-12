@@ -3,21 +3,22 @@ package controllers;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
+import models.Empresa;
 import models.Funcionario;
 import models.ListaDeFuncionarios;
-import models.TipoDadosFuncionario;
 import models.TipoData;
-import models.TipoPg;
 import views.FuncionarioView;
 import views.Home;
 
 public class ControladorFuncionario {
+    private Empresa empresa;
     private ListaDeFuncionarios lFuncionarios;
     private FuncionarioView view;
 
-    public ControladorFuncionario() {
-        this.lFuncionarios = new ListaDeFuncionarios();
-        this.view = new FuncionarioView();
+    public ControladorFuncionario(Empresa empresa, FuncionarioView funcionarioView) {
+        this.empresa = empresa;
+        this.lFuncionarios = empresa.getListaDeFuncionarios();
+        this.view = funcionarioView;
     }
 
     public void iniciar() {
@@ -68,47 +69,32 @@ public class ControladorFuncionario {
         return option;
     }
 
-    private void adicionarFuncionario() {
+    public void adicionarFuncionario() {
         // Lógica para adicionar um novo funcionário
         Map<String, Object> r = view.adicionarFuncionario();
-        TipoDadosFuncionario dados = new TipoDadosFuncionario( (String) r.get("nome"), (String) r.get("cpf"), (String) r.get("endereco"), (String) r.get("telefone"), (String) r.get("email"));
-        TipoPg tp;
-        switch ((int) r.get("tipoPg")) {
-            case 1:
-                tp = TipoPg.CHEQUE;
-                break;
-            case 2:
-                tp = TipoPg.DEPOSITO_DIRETO;
-                break;
-            case 3:
-                tp = TipoPg.RETIRADA_ESCRITORIO;
-                break;
-            default:
-                view.exibirMensagem("Tipo de Pagamento invalido!");
-                return;
-        }
+        empresa.insereDadosFuncionario(r);
 
-        Funcionario funcionario = new Funcionario((String) r.get("nome"), (String) r.get("senha"), dados, tp);
-        lFuncionarios.adicionarFuncionario(funcionario);
+        lFuncionarios = empresa.getListaDeFuncionarios();
         view.exibirMensagem("Funcionário adicionado com sucesso!");
     }
 
-    private void atualizarFuncionario() {
+    public void atualizarFuncionario() {
         // Lógica para atualizar dados de um funcionário
-        String id = (String) view.getId("Escreva o ID do usuario que deseja alterar: ").get("id");
+
+    }
+
+    public void excluirFuncionario() {
+        String id = (String) view.getId("Escreva o ID do usuario que deseja excluir: ").get("id");
         Funcionario f = lFuncionarios.getFuncionarioPorID(id);
         if (f != null) {
-            Map<String, Object> r = view.atualizarFuncionario(f.getDados());
-            TipoDadosFuncionario novosDados = new TipoDadosFuncionario( (String) r.get("nome"), (String) r.get("cpf"), (String) r.get("endereco"), (String) r.get("telefone"), (String) r.get("email"));
-
-            f.atribuirDados(novosDados);
-            view.exibirMensagem("Funcionário atualizado com sucesso!");
+            lFuncionarios.removerFuncionario(f);
+            view.exibirMensagem("Funcionário exlcuido com sucesso!");
         } else {
             view.exibirMensagem("Funcionário não encontrado.");
         }
     }
 
-    private void listarFuncionarios() {
+    public void listarFuncionarios() {
         view.exibirListaFuncionarios(lFuncionarios);
     }
 

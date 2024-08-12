@@ -39,29 +39,43 @@ public class FuncionarioView {
         retorno.put("telefone", scanner.nextLine());
         System.out.print("Email: ");
         retorno.put("email", scanner.nextLine());
+        System.out.print("Deducao Padrao: ");
+        retorno.put("deducaoPadrao", scanner.nextDouble());
+        System.out.print("Outras Deducoes: ");
+        retorno.put("outrasDeducoes", scanner.nextDouble());
+        scanner.nextLine();  
 
+        System.out.println("Tipo de Funcionario (1: Horista, 2: Assalariado, 3: Comissionado): ");
+        int tipoFuncionario = scanner.nextInt();
+        scanner.nextLine();  // Consumir a nova linha após o número
 
-        boolean running = true;
-        int n = -1;
-        while (running) {
-            System.out.print("Tipo de pagamento (Cheque: 1, Dpesito Direto: 2, Retirada Escritorio: 3): ");
-
-            n = -1;
-            if (scanner.hasNextInt()) {
-                n = scanner.nextInt();
-                scanner.nextLine(); // Consome a nova linha
-                if (n > 3 || n < 1){
-                    System.out.println("Entrada inválida, por favor digite um número valido (1, 2 ou 3).");
-                } else {
-                    running = false;
-                }
-            } else {
-                System.out.println("Entrada inválida, por favor digite um número.");
-                scanner.nextLine(); // Consome a entrada inválida
-            }
+        // Coletar informacoes adicionais com base no tipo de funcionario
+        switch (tipoFuncionario) {
+            case 1: // Horista
+                System.out.print("Taxa Horaria: ");
+                retorno.put("taxaHoraria", scanner.nextDouble());
+                scanner.nextLine();  // Consumir a nova linha após o número
+                retorno.put("tipo", "horista");
+                break;
+            case 2: // Assalariado
+                System.out.print("Salario: ");
+                retorno.put("salario", scanner.nextDouble());
+                scanner.nextLine();  // Consumir a nova linha após o número
+                retorno.put("tipo", "assalariado");
+                break;
+            case 3: // Comissionado
+                System.out.print("Salario: ");
+                retorno.put("salario", scanner.nextDouble());
+                scanner.nextLine();  // Consumir a nova linha após o número
+                System.out.print("Taxa de Comissao: ");
+                retorno.put("taxaComissao", scanner.nextDouble());
+                scanner.nextLine();  // Consumir a nova linha após o número
+                retorno.put("tipo", "comissionado");
+                break;
+            default:
+                System.out.println("Tipo de funcionario invalido.");
+                break;
         }
-
-        retorno.put("tipoPg", n);
 
         return retorno;
     }

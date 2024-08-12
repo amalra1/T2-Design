@@ -1,6 +1,6 @@
 package models;
 
-public class Funcionario {
+public abstract class Funcionario {
 
     // Atributos da classe Funcionario
     private String nome;
@@ -21,6 +21,9 @@ public class Funcionario {
         this.excluirUser = false; // Default é não excluir
         this.gerarID();
     }
+
+    // Métodos comuns a todos os funcionários
+    public abstract double calcularPagamento();
 
     // Método para gerar um ID para o funcionário
     public void gerarID() {
