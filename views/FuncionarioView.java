@@ -88,68 +88,47 @@ public class FuncionarioView {
         return retorno;
     }
 
-    public Map<String, Object> getId(String mensagem){
-        Map<String, Object> retorno = new HashMap<>();
+    public String getId(String mensagem){
+        String retorno;
         Scanner scanner = new Scanner(System.in);
 
         System.out.print(mensagem);
-        retorno.put("id", scanner.nextLine());
+        retorno = scanner.nextLine();
 
         return retorno;
     }
 
-    public Map<String, Object> atualizarFuncionario(TipoDadosFuncionario f){
+    public Map<String, Object> atualizarFuncionario(Funcionario f){
         Map<String, Object> retorno = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        
-        String r;
+  
+        System.out.println("Adicionar Funcionario");
 
-        System.out.println("Atulizar Funcionario (campos em branco não serão alterados)");
-        
         System.out.println("Nome atual: " + f.getNome());
         System.out.print("Nome: ");
-        r = scanner.nextLine();
-        if (r.equals("")){
-            retorno.put("nome", f.getNome());
-        } else {
-            retorno.put("nome", r);
-        }
-
-        System.out.println("CPF atual: " + f.getCpf());
+        retorno.put("nome", scanner.nextLine());
+        System.out.println("Senha atual: " + f.getSenha());
+        System.out.print("Senha: ");
+        retorno.put("senha", scanner.nextLine());
+        System.out.println("CPF atual: " + f.getDados().getCpf());
         System.out.print("CPF: ");
-        r = scanner.nextLine();
-        if (r.equals("")){
-            retorno.put("cpf", f.getCpf());
-        } else {
-            retorno.put("cpf", r);
-        }
-        
-        System.out.println("Endereco atual: " + f.getEndereco());
+        retorno.put("cpf", scanner.nextLine());
+        System.out.println("Endereço atual: " + f.getDados().getEndereco());
         System.out.print("Endereço: ");
-        r = scanner.nextLine();
-        if (r.equals("")){
-            retorno.put("endereco", f.getEndereco());
-        } else {
-            retorno.put("endereco", r);
-        }
-
-        System.out.println("Telefone atual: " + f.getTelefone());
+        retorno.put("endereco", scanner.nextLine());
+        System.out.println("Telefone atual: " + f.getDados().getTelefone());
         System.out.print("Telefone: ");
-        r = scanner.nextLine();
-        if (r.equals("")){
-            retorno.put("telefone", f.getTelefone());
-        } else {
-            retorno.put("telefone", r);
-        }
-
-        System.out.println("Email atual: " + f.getEmail());
+        retorno.put("telefone", scanner.nextLine());
+        System.out.println("Email atual: " + f.getDados().getEmail());
         System.out.print("Email: ");
-        r = scanner.nextLine();
-        if (r.equals("")){
-            retorno.put("email", f.getEmail());
-        } else {
-            retorno.put("email", r);
-        }
+        retorno.put("email", scanner.nextLine());
+        System.out.println("Deducao Padrao atual: " + f.getDados().getDeducaoPadrao());
+        System.out.print("Deducao Padrao: ");
+        retorno.put("deducaoPadrao", scanner.nextDouble());
+        System.out.println("Outras Deducoes atual: " + f.getDados().getOutrasDeducoes());
+        System.out.print("Outras Deducoes: ");
+        retorno.put("outrasDeducoes", scanner.nextDouble());
+        scanner.nextLine(); 
 
         return retorno;
     }

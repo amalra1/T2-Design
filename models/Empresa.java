@@ -64,11 +64,55 @@ public class Empresa {
         f.atualizaDados(novosDados);
     }
 
-    // Método para marcar um funcionário para exclusão
-    public void marcaFuncionarioExclusao(String ID) {
-        Funcionario f = listaDeFuncionarios.getFuncionarioPorID(ID);
-        f.setParaExclusao(true);
+    public String atualizaDadosFuncionario(String funcionarioID, Map<String, Object> dadosFuncionario) {
+        // Procurar o funcionário pelo ID
+        Funcionario funcionarioExistente = listaDeFuncionarios.getFuncionarioPorID(funcionarioID);
+    
+        if (funcionarioExistente == null) {
+            System.out.println("Funcionario nao encontrado.");
+            return null; // Retorna se o funcionário não for encontrado
+        }
+    
+        // Atualizar dados básicos apenas se estiverem presentes no mapa
+        if (dadosFuncionario.containsKey("nome") && !((String) dadosFuncionario.get("nome")).isEmpty()) {
+            funcionarioExistente.setNome((String) dadosFuncionario.get("nome"));
+        }
+    
+        if (dadosFuncionario.containsKey("senha") && !((String) dadosFuncionario.get("senha")).isEmpty()) {
+            funcionarioExistente.setSenha((String) dadosFuncionario.get("senha"));
+        }
+    
+        if (dadosFuncionario.containsKey("cpf") && !((String) dadosFuncionario.get("cpf")).isEmpty()) {
+            funcionarioExistente.getDados().setCpf((String) dadosFuncionario.get("cpf"));
+        }
+    
+        if (dadosFuncionario.containsKey("endereco") && !((String) dadosFuncionario.get("endereco")).isEmpty()) {
+            funcionarioExistente.getDados().setEndereco((String) dadosFuncionario.get("endereco"));
+        }
+    
+        if (dadosFuncionario.containsKey("telefone") && !((String) dadosFuncionario.get("telefone")).isEmpty()) {
+            funcionarioExistente.getDados().setTelefone((String) dadosFuncionario.get("telefone"));
+        }
+    
+        if (dadosFuncionario.containsKey("email") && !((String) dadosFuncionario.get("email")).isEmpty()) {
+            funcionarioExistente.getDados().setEmail((String) dadosFuncionario.get("email"));
+        }
+    
+        if (dadosFuncionario.containsKey("deducaoPadrao")) {
+            funcionarioExistente.getDados().setDeducaoPadrao(
+                ((Number) dadosFuncionario.get("deducaoPadrao")).doubleValue()
+            );
+        }
+    
+        if (dadosFuncionario.containsKey("outrasDeducoes")) {
+            funcionarioExistente.getDados().setOutrasDeducoes(
+                ((Number) dadosFuncionario.get("outrasDeducoes")).doubleValue()
+            );
+        }
+    
+        return funcionarioExistente.getID();
     }
+    
 
     // Método para enviar cartão de ponto
     public void enviaCartao(TipoData dataAtual) {
