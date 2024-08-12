@@ -1,8 +1,8 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
 
 public class ListaDeFuncionarios implements Serializable {
 
@@ -55,10 +55,10 @@ public class ListaDeFuncionarios implements Serializable {
     }
 
     // Método para enviar o cartão de ponto
-    public void enviaCartao(TipoData dataAtual) {
+    public void enviaCartao(TipoData dataAtual, TipoHoras horas) {
         for (Funcionario funcionario : funcionarios) {
             if (!funcionario.isCartaoEnviado()) {
-                funcionario.enviarCartao(dataAtual);
+                funcionario.enviarCartao(dataAtual, horas);
             }
         }
     }

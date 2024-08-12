@@ -118,8 +118,8 @@ public class Empresa implements Serializable {
     
 
     // Método para enviar cartão de ponto
-    public void enviaCartao(TipoData dataAtual) {
-        listaDeFuncionarios.enviaCartao(dataAtual);
+    public void enviaCartao(TipoData dataAtual, TipoHoras horas) {
+        listaDeFuncionarios.enviaCartao(dataAtual, horas);
     }
 
     // Getters e Setters
